@@ -73,13 +73,14 @@
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
-    z-index: 100;
+    z-index: 1000;
     padding: 1.5rem 4rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(to bottom, rgba(14,14,14,0.95) 0%, transparent 100%);
-    backdrop-filter: blur(4px);
+    background: rgba(14,14,14,0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
   }
   .nav-logo {
     font-family: 'Cormorant Garamond', serif;
@@ -114,6 +115,21 @@
   .nav-links a:hover { color: var(--gold2); }
   .nav-links a:hover::after { width: 100%; }
 
+  /* Hamburger Menu */
+  .menu-toggle {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 1px;
+    background-color: var(--gold);
+    transition: 0.3s;
+  }
+
   /* HERO */
   #hero {
     min-height: 100vh;
@@ -137,14 +153,6 @@
     width: 700px; height: 700px;
     border-radius: 50%;
     background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%);
-  }
-  .hero-bg-lines::after {
-    content: '';
-    position: absolute;
-    bottom: 10%; left: -5%;
-    width: 400px; height: 400px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(184,115,51,0.05) 0%, transparent 70%);
   }
   .hero-label {
     font-size: 0.65rem;
@@ -226,28 +234,6 @@
     transition: color 0.3s;
   }
   .btn-ghost:hover { color: var(--gold); }
-  .hero-scroll {
-    position: absolute;
-    bottom: 2.5rem; left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    opacity: 0;
-    animation: fadeIn 1s 1.5s ease forwards;
-  }
-  .scroll-line {
-    width: 1px; height: 60px;
-    background: linear-gradient(to bottom, var(--gold), transparent);
-    animation: scrollPulse 2s infinite;
-  }
-  .scroll-text {
-    font-size: 0.55rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--text-dim);
-  }
 
   /* SECTIONS */
   section { position: relative; z-index: 1; }
@@ -299,54 +285,15 @@
     margin: 0 4rem;
   }
 
-  /* ABOUT */
-  #about { background: var(--bg2); }
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: start;
-  }
-  .about-text p {
-    font-size: 0.9rem;
-    line-height: 1.9;
-    color: var(--text-muted);
-    margin-bottom: 1.5rem;
-  }
-  .about-text p strong {
-    color: var(--text);
-    font-weight: 500;
-  }
-  .about-details {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 2rem;
-  }
-  .about-detail {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    letter-spacing: 0.05em;
-  }
-  .about-detail .icon {
-    width: 32px; height: 32px;
-    border: 1px solid var(--gold-border);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--gold);
-    font-size: 0.9rem;
-    flex-shrink: 0;
-  }
+  /* EXPERIENCE LIST */
   .experience-list { display: flex; flex-direction: column; gap: 1.5rem; }
   .exp-item {
     padding: 1.5rem;
     border: 1px solid var(--gold-border);
-    background: var(--bg-gold-dim);
+    background: var(--bg2);
     position: relative;
     overflow: hidden;
-    transition: border-color 0.3s, background 0.3s;
+    transition: 0.3s;
   }
   .exp-item::before {
     content: '';
@@ -358,293 +305,81 @@
   }
   .exp-item:hover { border-color: rgba(201,168,76,0.5); background: rgba(201,168,76,0.04); }
   .exp-item:hover::before { height: 100%; }
-  .exp-role {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--white);
-    margin-bottom: 0.3rem;
-  }
-  .exp-company {
-    font-size: 0.7rem;
-    color: var(--gold);
-    letter-spacing: 0.1em;
-    margin-bottom: 0.3rem;
-  }
-  .exp-period {
-    font-size: 0.62rem;
-    color: var(--text-dim);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-  }
-  .exp-bullets {
-    margin-top: 0.8rem;
-    padding-left: 1rem;
-    list-style: none;
-  }
-  .exp-bullets li {
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    line-height: 1.7;
-    position: relative;
-    padding-left: 1rem;
-  }
-  .exp-bullets li::before {
-    content: '—';
-    position: absolute;
-    left: 0;
-    color: var(--gold);
-    opacity: 0.6;
-  }
+  .exp-role { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--white); margin-bottom: 0.3rem; }
+  .exp-company { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+  .exp-period { font-size: 0.62rem; color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase; }
+  .exp-bullets { margin-top: 0.8rem; padding-left: 1rem; list-style: none; }
+  .exp-bullets li { font-size: 0.72rem; color: var(--text-muted); line-height: 1.7; position: relative; padding-left: 1rem; }
+  .exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--gold); opacity: 0.6; }
 
-  /* SKILLS */
-  #skills { background: var(--bg); }
+  /* SKILLS GRID */
   .skills-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1px;
     border: 1px solid var(--gold-border);
-    overflow: hidden;
   }
-  .skill-card {
-    background: var(--bg2);
-    padding: 2rem 1.5rem;
-    text-align: center;
-    transition: background 0.3s, transform 0.3s;
-    position: relative;
-    overflow: hidden;
-    cursor: none;
-  }
-  .skill-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, rgba(201,168,76,0.08) 0%, transparent 70%);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
+  .skill-card { background: var(--bg2); padding: 2rem 1.5rem; text-align: center; position: relative; transition: 0.3s; }
   .skill-card:hover { background: var(--bg3); transform: translateY(-4px); }
-  .skill-card:hover::after { opacity: 1; }
-  .skill-icon {
-    font-size: 2rem;
-    margin-bottom: 0.75rem;
-    display: block;
-  }
-  .skill-name {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--text);
-    letter-spacing: 0.05em;
-    margin-bottom: 0.3rem;
-  }
-  .skill-bar-wrap {
-    height: 2px;
-    background: rgba(255,255,255,0.05);
-    margin-top: 0.8rem;
-    overflow: hidden;
-  }
-  .skill-bar {
-    height: 100%;
-    background: linear-gradient(to right, var(--gold), var(--gold2));
-    width: 0;
-    transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-  }
+  .skill-icon { font-size: 2rem; margin-bottom: 0.75rem; display: block; }
+  .skill-name { font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 600; color: var(--text); margin-bottom: 0.3rem; }
+  .skill-bar-wrap { height: 2px; background: rgba(255,255,255,0.05); margin-top: 0.8rem; }
+  .skill-bar { height: 100%; background: var(--gold); width: 0; transition: width 1.2s ease; }
 
   /* PROJECTS */
-  #projects { background: var(--bg2); }
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-  }
-  .project-card {
-    background: var(--bg);
-    border: 1px solid var(--gold-border);
-    overflow: hidden;
-    position: relative;
-    transition: border-color 0.4s, transform 0.4s;
-    cursor: none;
-    group: true;
-  }
+  .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .project-card { background: var(--bg); border: 1px solid var(--gold-border); transition: 0.4s; }
   .project-card:hover { border-color: rgba(201,168,76,0.6); transform: translateY(-6px); }
-  .project-img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    display: block;
-    filter: grayscale(0.3) brightness(0.85);
-    transition: filter 0.5s, transform 0.6s;
-  }
-  .project-card:hover .project-img { filter: grayscale(0) brightness(1); transform: scale(1.03); }
-  .project-img-wrap { overflow: hidden; position: relative; }
-  .project-img-wrap::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 60px;
-    background: linear-gradient(to top, var(--bg), transparent);
-  }
-  .project-body { padding: 1.5rem 1.75rem 2rem; }
-  .project-num {
-    font-size: 0.6rem;
-    letter-spacing: 0.3em;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-  }
-  .project-name {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 0.75rem;
-    line-height: 1.2;
-  }
-  .project-desc {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    line-height: 1.8;
-  }
+  .project-img { width: 100%; height: 220px; object-fit: cover; filter: grayscale(0.5); transition: 0.5s; }
+  .project-card:hover .project-img { filter: grayscale(0); }
+  .project-body { padding: 1.5rem; }
+  .project-name { font-family: 'Syne', sans-serif; font-size: 1.1rem; color: var(--white); margin-bottom: 0.75rem; }
+  .project-desc { font-size: 0.75rem; color: var(--text-muted); line-height: 1.8; }
 
   /* CONTACT */
-  #contact { background: var(--bg); }
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: center;
-  }
-  .contact-left p {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    line-height: 1.9;
-    margin-bottom: 2.5rem;
-  }
   .contact-items { display: flex; flex-direction: column; gap: 1.25rem; }
-  .contact-item {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  .contact-item .c-icon {
-    width: 44px; height: 44px;
-    border: 1px solid var(--gold-border);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--gold);
-    font-size: 1.1rem;
-    flex-shrink: 0;
-    transition: background 0.3s, border-color 0.3s;
-  }
-  .contact-item:hover .c-icon { background: var(--gold-dim); border-color: var(--gold); }
-  .contact-item-text { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.05em; }
-  .contact-item-text strong { display: block; color: var(--text); font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.2rem; }
+  .contact-item { display: flex; align-items: center; gap: 1.25rem; text-decoration: none; color: inherit; }
+  .c-icon { width: 44px; height: 44px; border: 1px solid var(--gold-border); display: flex; align-items: center; justify-content: center; color: var(--gold); }
+  .contact-item-text { font-size: 0.75rem; color: var(--text-muted); }
+  .contact-item-text strong { display: block; color: var(--text); font-size: 0.65rem; margin-bottom: 0.2rem; }
 
-  .contact-right form { display: flex; flex-direction: column; gap: 1.25rem; }
-  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
-  .form-group label { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); }
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.25rem; }
   .form-group input, .form-group textarea {
-    background: var(--bg2);
-    border: 1px solid var(--gold-border);
-    color: var(--text);
-    padding: 0.85rem 1rem;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.8rem;
-    outline: none;
-    resize: none;
-    transition: border-color 0.3s;
-    cursor: none;
+    background: var(--bg2); border: 1px solid var(--gold-border); color: var(--text); padding: 0.85rem; outline: none; font-family: inherit;
   }
-  .form-group input:focus, .form-group textarea:focus { border-color: var(--gold); }
-  .form-group textarea { min-height: 120px; }
-  .form-submit {
-    padding: 0.9rem 2rem;
-    background: transparent;
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    cursor: none;
-    transition: background 0.3s, color 0.3s;
-    align-self: flex-start;
-  }
+  .form-submit { padding: 0.9rem 2rem; background: transparent; border: 1px solid var(--gold); color: var(--gold); text-transform: uppercase; cursor: pointer; transition: 0.3s; }
   .form-submit:hover { background: var(--gold); color: #0e0e0e; }
 
   /* FOOTER */
-  footer {
-    background: var(--bg2);
-    padding: 2rem 4rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid var(--line);
-  }
-  footer .f-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
-    font-weight: 300;
-    color: var(--gold2);
-    letter-spacing: 0.15em;
-  }
-  footer .f-copy {
-    font-size: 0.62rem;
-    color: var(--text-dim);
-    letter-spacing: 0.1em;
-  }
+  footer { background: var(--bg2); padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); }
 
   /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  @keyframes scrollPulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  .reveal { opacity: 0; transform: translateY(40px); transition: 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  .reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .reveal-delay-1 { transition-delay: 0.1s; }
-  .reveal-delay-2 { transition-delay: 0.2s; }
-  .reveal-delay-3 { transition-delay: 0.3s; }
-  .reveal-delay-4 { transition-delay: 0.4s; }
-  .reveal-delay-5 { transition-delay: 0.5s; }
-
-  /* MOBILE */
+  /* MOBILE MEDIA QUERIES */
   @media (max-width: 900px) {
     nav { padding: 1.2rem 1.5rem; }
-    .nav-links { gap: 1.5rem; }
-    #hero { padding: 0 1.5rem; }
+    .nav-links {
+      position: fixed;
+      top: 0; right: -100%;
+      height: 100vh;
+      width: 70%;
+      background: var(--bg);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: 0.4s ease;
+      z-index: 999;
+      border-left: 1px solid var(--gold-border);
+    }
+    .nav-links.active { right: 0; }
+    .menu-toggle { display: flex; z-index: 1001; }
     .section-inner { padding: 5rem 1.5rem; }
-    .divider { margin: 0 1.5rem; }
-    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .about-grid, .projects-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
     .skills-grid { grid-template-columns: repeat(2, 1fr); }
-    .projects-grid { grid-template-columns: 1fr; }
-    .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 1.5rem; }
-  }
-  @media (max-width: 600px) {
-    .nav-links { display: none; }
-    .hero-name { font-size: 2.8rem; }
-    .skills-grid { grid-template-columns: repeat(2, 1fr); }
-    .cursor, .cursor-ring { display: none; }
-    body { cursor: auto; }
-    .btn-primary, .form-group input, .form-group textarea, .form-submit, .contact-item, .project-card, .skill-card { cursor: pointer; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
   }
 </style>
 </head>
@@ -653,18 +388,23 @@
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- NAV -->
 <nav>
   <a href="#hero" class="nav-logo">Mohamed Yassin</a>
+  
+  <div class="menu-toggle" id="mobile-menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
+    <li><a href="#Experience">Experience</a></li> <li><a href="#skills">Skills</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
 <section id="hero">
   <div class="hero-bg-lines"></div>
   <div class="hero-label">Talent Acquisition</div>
@@ -677,13 +417,10 @@
     <a href="#contact" class="btn-primary">Get In Touch</a>
     <a href="#projects" class="btn-ghost">View Projects &nbsp;→</a>
   </div>
-  <div class="hero-scroll">
-    <div class="scroll-line"></div>
-    <span class="scroll-text">Scroll</span>
-  </div>
 </section>
 
 <div class="divider"></div>
+
 <section id="about">
   <div class="section-inner">
     <div class="about-grid">
@@ -700,101 +437,36 @@
 
 <section id="Experience">
   <div class="section-inner">
-    <div class="about-grid">
-      <div class="about-text reveal">
-        <div class="section-label">01- Experiences</div>
-        <h2 class="section-title">Work <em>Experiences</em></h2>
-        <div class="experience-list">
-          <div class="exp-item reveal reveal-delay-1">
-            <div class="exp-role">Talent Acquisition Specialist</div>
-            <div class="exp-company">Al-Esraa Pharmaceuticals Optima</div>
-            <div class="exp-period">March 2026 — Present</div>
-            <ul class="exp-bullets">
-              <li>Headhunting & strategic sourcing</li>
-              <li>CV screening and managerial interviews</li>
-              <li>Coordinating and optimizing recruitment workflows</li>
-            </ul>
-          </div>
-          
-          <div class="exp-item reveal reveal-delay-2">
-            <div class="exp-role">Talent Acquisition Specialist</div>
-            <div class="exp-company">Oriental Weavers</div>
-            <div class="exp-period">2021 — Present</div>
-            <ul class="exp-bullets">
-              <li>Full-cycle recruitment for junior & mid-level roles</li>
-              <li>Sourcing via LinkedIn, job boards, and referrals</li>
-              <li>Recruitment analytics: time-to-hire, source-of-hire KPIs</li>
-              <li>Employer branding and campus recruitment initiatives</li>
-            </ul>
-          </div>
-          
-          <div class="exp-item reveal reveal-delay-3">
+    <div class="reveal">
+      <div class="section-label">01 — Experience</div>
+      <h2 class="section-title">Work <em>Experiences</em></h2>
+      <div class="experience-list">
+        <div class="exp-item">
+          <div class="exp-role">Talent Acquisition Specialist</div>
+          <div class="exp-company">Al-Esraa Pharmaceuticals Optima</div>
+          <div class="exp-period">March 2026 — Present</div>
+          <ul class="exp-bullets">
+            <li>Headhunting & strategic sourcing</li>
+            <li>CV screening and managerial interviews</li>
+          </ul>
+        </div>
+        <div class="exp-item">
+          <div class="exp-role">Talent Acquisition Specialist</div>
+          <div class="exp-company">Oriental Weavers</div>
+          <div class="exp-period">2021 — Present</div>
+          <ul class="exp-bullets">
+            <li>Full-cycle recruitment for junior & mid-level roles</li>
+            <li>Recruitment analytics: time-to-hire, source-of-hire KPIs</li>
+          </ul>
+        </div>
+        <div class="exp-item">
             <div class="exp-role">Data Support Team Lead</div>
             <div class="exp-company">Oriental Weavers</div>
             <div class="exp-period">2017 — 2021</div>
             <ul class="exp-bullets">
-              <li>Inventory reporting, stock aging, discrepancy monitoring</li>
-              <li>Customs coordination and logistics clearance</li>
+              <li>Inventory reporting and stock aging monitoring</li>
             </ul>
           </div>
-          
-          <div class="exp-item reveal reveal-delay-4">
-            <div class="exp-role">Payroll Specialist</div>
-            <div class="exp-company">Al Fozan Holding — Riyadh, KSA</div>
-            <div class="exp-period">Previous Role</div>
-            <ul class="exp-bullets">
-              <li>Payroll processing, compliance, and reporting</li>
-            </ul>
-          </div>
-        </div> </div> </div> </div> </section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="section-inner">
-    <div class="reveal">
-      <div class="section-label">02 — Skills</div>
-      <h2 class="section-title">Tools & <em>Skills</em></h2>
-    </div>
-    <div class="skills-grid reveal reveal-delay-2">
-      <div class="skill-card">
-        <span class="skill-icon">⬡</span>
-        <div class="skill-name">SAP HCM</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" data-width="90"></div></div>
-      </div>
-      <div class="skill-card">
-        <span class="skill-icon">◈</span>
-        <div class="skill-name">Power BI</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" data-width="88"></div></div>
-      </div>
-      <div class="skill-card">
-        <span class="skill-icon">▦</span>
-        <div class="skill-name">Advanced Excel</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" data-width="95"></div></div>
-      </div>
-      <div class="skill-card">
-        <span class="skill-icon">◯</span>
-        <div class="skill-name">Power Query</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" data-width="85"></div></div>
-      </div>
-      <div class="skill-card">
-        <span class="skill-icon">△</span>
-        <div class="skill-name">Data Modeling</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" data-width="82"></div></div>
-      </div>
-      <div class="skill-card">
-        <span class="skill-icon">⌘</span>
-        <div class="skill-name">Python</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" data-width="68"></div></div>
-      </div>
-      <div class="skill-card">
-        <span class="skill-icon">✦</span>
-        <div class="skill-name">Photoshop</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" data-width="75"></div></div>
-      </div>
-      <div class="skill-card">
-        <span class="skill-icon">⬕</span>
-        <div class="skill-name">Visio</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" data-width="80"></div></div>
       </div>
     </div>
   </div>
@@ -802,7 +474,39 @@
 
 <div class="divider"></div>
 
-<!-- PROJECTS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">02 — Skills</div>
+      <h2 class="section-title">Tools & <em>Skills</em></h2>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-card">
+        <span class="skill-icon">⬡</span>
+        <div class="skill-name">SAP HCM</div>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width: 90%;"></div></div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">◈</span>
+        <div class="skill-name">Power BI</div>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width: 88%;"></div></div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">▦</span>
+        <div class="skill-name">Advanced Excel</div>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width: 95%;"></div></div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">◯</span>
+        <div class="skill-name">Power Query</div>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width: 85%;"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <section id="projects">
   <div class="section-inner">
     <div class="reveal">
@@ -810,54 +514,18 @@
       <h2 class="section-title">Work <em>Projects</em></h2>
     </div>
     <div class="projects-grid">
-      <div class="project-card reveal reveal-delay-1">
-        <div class="project-img-wrap">
-          <img class="project-img" src="https://i.ibb.co/FqkkLX2x/4444.png" alt="Dynamic Dashboard New Hires" onerror="this.src='https://via.placeholder.com/600x220/1a1a1a/c9a84c?text=Dashboard+Preview'">
-        </div>
+      <div class="project-card reveal">
+        <img class="project-img" src="https://i.ibb.co/FqkkLX2x/4444.png" alt="Dashboard">
         <div class="project-body">
-          <div class="project-num">01 / Power BI</div>
           <div class="project-name">Dynamic Dashboard — New Hires</div>
-          <p class="project-desc">Dashboard showing new hires by period (year, month, week) across colors, factories, departments, and families. Enables granular workforce tracking.</p>
+          <p class="project-desc">Power BI dashboard for granular workforce tracking and hiring analytics.</p>
         </div>
       </div>
-      <div class="project-card reveal reveal-delay-2">
-        <div class="project-img-wrap">
-          <img class="project-img" src="https://i.ibb.co/TDgWJtzy/1760735764787.jpg" alt="Headcount Dashboard" onerror="this.src='https://via.placeholder.com/600x220/1a1a1a/c9a84c?text=Dashboard+Preview'">
-        </div>
+      <div class="project-card reveal">
+        <img class="project-img" src="https://i.ibb.co/TDgWJtzy/1760735764787.jpg" alt="Headcount">
         <div class="project-body">
-          <div class="project-num">02 / Power BI</div>
           <div class="project-name">Headcount Dashboard</div>
-          <p class="project-desc">Dynamic dashboard displaying factory headcount with all employee details clearly outlined. A comprehensive people-analytics interface.</p>
-        </div>
-      </div>
-      <div class="project-card reveal reveal-delay-3">
-        <div class="project-img-wrap">
-          <img class="project-img" src="https://i.ibb.co/MYyqMSn/1772816972244.jpg" alt="Data Modeling Links" onerror="this.src='https://via.placeholder.com/600x220/1a1a1a/c9a84c?text=Dashboard+Preview'">
-        </div>
-        <div class="project-body">
-          <div class="project-num">03 / Data Modeling</div>
-          <div class="project-name">Data Modeling Dashboard</div>
-          <p class="project-desc">Multi-year hires, headcount gaps, and required hires by year, factory, family, and department. Supports long-term workforce planning decisions.</p>
-        </div>
-      </div>
-      <div class="project-card reveal reveal-delay-4">
-        <div class="project-img-wrap">
-          <img class="project-img" src="https://i.ibb.co/20wJBVjV/Gemini-Generated-Image-2aqt8h2aqt8h2aqt.png" alt="Internal Medical Transfer App" onerror="this.src='https://via.placeholder.com/600x220/1a1a1a/c9a84c?text=App+Preview'">
-        </div>
-        <div class="project-body">
-          <div class="project-num">04 / Web Application</div>
-          <div class="project-name">Internal Medical Transfer App</div>
-          <p class="project-desc">Web application on the company server facilitating internal medical transfers, linking the company hospital to speed up results and eliminate paperwork.</p>
-        </div>
-      </div>
-      <div class="project-card reveal reveal-delay-5" style="grid-column: 1 / -1; max-width: 560px;">
-        <div class="project-img-wrap">
-          <img class="project-img" src="https://i.ibb.co/q335wcc0/Gemini-Generated-Image-6u34506u34506u34.png" alt="Payroll Web App" onerror="this.src='https://via.placeholder.com/600x220/1a1a1a/c9a84c?text=App+Preview'">
-        </div>
-        <div class="project-body">
-          <div class="project-num">05 / Web Application</div>
-          <div class="project-name">Payroll Web App</div>
-          <p class="project-desc">Web app showing employee payroll slips from Google Sheets on a Google Sites interface. Each employee has a personal code and password for secure access.</p>
+          <p class="project-desc">Comprehensive people-analytics interface for factory headcount.</p>
         </div>
       </div>
     </div>
@@ -865,147 +533,89 @@
 </section>
 
 <div class="divider"></div>
+
 <section id="contact">
   <div class="section-inner">
     <div class="contact-grid">
       <div class="reveal">
         <div class="section-label">04 — Contact</div>
         <h2 class="section-title">Let's <em>Connect</em></h2>
-        
         <div class="contact-items">
           <a href="mailto:m.3ysalem@gmail.com" class="contact-item">
             <div class="c-icon">✉</div>
-            <div class="contact-item-text">
-              <strong>EMAIL</strong>
-              <span>m.3ysalem@gmail.com</span>
-            </div>
+            <div class="contact-item-text"><strong>EMAIL</strong>m.3ysalem@gmail.com</div>
           </a>
-
           <div class="contact-item">
             <div class="c-icon">&#128241;</div>
-            <div class="contact-item-text">
-              <strong>MOBILE</strong>
-              <span>01025161154</span>
-            </div>
-          </div>
-
-          <div class="contact-item">
-            <div class="c-icon">◎</div>
-            <div class="contact-item-text">
-              <strong>LOCATION</strong>
-              <span>10th of Ramadan, Egypt</span>
-            </div>
+            <div class="contact-item-text"><strong>MOBILE</strong>01025161154</div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-      <div class="reveal reveal-delay-2">
-        <form id="contactForm" onsubmit="handleSubmit(event)">
+      <div class="reveal">
+        <form id="contactForm">
           <div class="form-group">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" placeholder="John Smith" required>
+            <label>Your Name</label>
+            <input type="text" placeholder="John Smith" required>
           </div>
           <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" placeholder="john@company.com" required>
+            <label>Email Address</label>
+            <input type="email" placeholder="john@company.com" required>
           </div>
           <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" placeholder="Tell me about the opportunity..." required></textarea>
+            <label>Message</label>
+            <textarea placeholder="Tell me about the opportunity..." required></textarea>
           </div>
-          <button type="submit" class="form-submit" id="submitBtn">Send Message →</button>
+          <button type="submit" class="form-submit">Send Message →</button>
         </form>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <span class="f-name">Mohamed Ali Yasin</span>
   <span class="f-copy">© 2026 · Talent Acquisition Specialist</span>
 </footer>
 
 <script>
-  // CURSOR
+  // CURSOR LOGIC
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
   let mx = 0, my = 0, rx = 0, ry = 0;
   document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
   function animateCursor() {
-    cursor.style.left = (mx - 5) + 'px';
-    cursor.style.top = (my - 5) + 'px';
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = (rx - 18) + 'px';
-    ring.style.top = (ry - 18) + 'px';
+    cursor.style.left = (mx - 5) + 'px'; cursor.style.top = (my - 5) + 'px';
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = (rx - 18) + 'px'; ring.style.top = (ry - 18) + 'px';
     requestAnimationFrame(animateCursor);
   }
   animateCursor();
-  document.querySelectorAll('a, button, .project-card, .skill-card, .exp-item').forEach(el => {
-    el.addEventListener('mouseenter', () => { cursor.style.transform = 'scale(2)'; ring.style.transform = 'scale(1.5)'; ring.style.opacity = '1'; });
-    el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; ring.style.transform = 'scale(1)'; ring.style.opacity = '0.5'; });
+
+  // MOBILE MENU LOGIC
+  const menuToggle = document.getElementById('mobile-menu');
+  const navLinks = document.querySelector('.nav-links');
+  menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    // Animation for hamburger
+    const spans = menuToggle.querySelectorAll('span');
+    spans[0].style.transform = navLinks.classList.contains('active') ? 'rotate(45deg) translate(5px, 5px)' : '';
+    spans[1].style.opacity = navLinks.classList.contains('active') ? '0' : '1';
+    spans[2].style.transform = navLinks.classList.contains('active') ? 'rotate(-45deg) translate(7px, -6px)' : '';
+  });
+
+  // Close menu on link click
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => navLinks.classList.remove('active'));
   });
 
   // REVEAL ON SCROLL
-  const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        // trigger skill bars
-        const bars = entry.target.querySelectorAll('.skill-bar');
-        bars.forEach(bar => { bar.style.width = bar.dataset.width + '%'; });
-      }
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
-  }, { threshold: 0.12 });
-  reveals.forEach(el => observer.observe(el));
-
-  // Also trigger skill bars when skills section comes in view
-  const skillsSection = document.querySelector('#skills');
-  const skillObserver = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) {
-      document.querySelectorAll('.skill-bar').forEach(bar => {
-        setTimeout(() => { bar.style.width = bar.dataset.width + '%'; }, 300);
-      });
-    }
-  }, { threshold: 0.2 });
-  skillObserver.observe(skillsSection);
-
-  // SMOOTH ACTIVE NAV
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(section => {
-      const top = section.offsetTop - 120;
-      if (pageYOffset >= top) current = section.getAttribute('id');
-    });
-    navLinks.forEach(link => {
-      link.style.color = link.getAttribute('href') === '#' + current ? 'var(--gold2)' : '';
-    });
-  });
-
-  // FORM SUBMIT
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = document.getElementById('submitBtn');
-    btn.textContent = 'Sending...';
-    btn.style.opacity = '0.6';
-    setTimeout(() => {
-      btn.textContent = 'Message Sent ✓';
-      btn.style.borderColor = 'var(--gold2)';
-      btn.style.color = 'var(--gold2)';
-      btn.style.opacity = '1';
-      document.getElementById('contactForm').reset();
-      setTimeout(() => {
-        btn.textContent = 'Send Message →';
-        btn.style.borderColor = '';
-        btn.style.color = '';
-      }, 3000);
-    }, 1200);
-  }
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
+
 </body>
 </html>
