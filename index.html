@@ -327,7 +327,15 @@
   .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
   .project-card { background: var(--bg); border: 1px solid var(--gold-border); overflow: hidden; transition: 0.4s; }
   .project-card:hover { border-color: rgba(201,168,76,0.6); transform: translateY(-6px); }
-  .project-img { width: 100%; height: 220px; object-fit: cover; filter: grayscale(0.3); transition: 0.6s; }
+  ..project-img {
+    width: 100%;
+    height: 350px; /* زودنا الارتفاع هنا عشان الصور الطويلة تاخد راحتها */
+    object-fit: contain; /* ده هيخلي الصورة تظهر كاملة بدون قص */
+    background: var(--bg3); /* خلفية غامقة عشان لو الصورة ليها هوامش تبان شيك */
+    filter: grayscale(0.3);
+    transition: 0.6s;
+    padding: 10px; /* مسافة أمان جوه الكارد */
+  }
   .project-card:hover .project-img { filter: grayscale(0); transform: scale(1.03); }
   .project-body { padding: 1.5rem; }
   .project-name { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 0.75rem; }
@@ -571,7 +579,7 @@ and resume databases</li>
         <img class="project-img" src="https://i.ibb.co/MYyqMSn/1772816972244.jpg" alt="Staffing Gap Analysis">
         <div class="project-body">
           <div class="project-name">Multi-Year Staffing Gap Analysis</div>
-          <p class="project-desc">Power BI dashboard tracking hiring trends and deficit gaps across all departments.</p>
+          <p class="project-desc">Data Modeling tracking hiring trends and deficit gaps across all departments.</p>
         </div>
       </div>
 
