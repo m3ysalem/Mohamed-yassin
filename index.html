@@ -58,7 +58,6 @@
     opacity: 0.5;
   }
 
-  /* NOISE TEXTURE OVERLAY */
   body::before {
     content: '';
     position: fixed;
@@ -114,19 +113,13 @@
   .nav-links a:hover { color: var(--gold2); }
   .nav-links a:hover::after { width: 100%; }
 
-  /* MOBILE TOGGLE */
   .menu-toggle {
     display: none;
     cursor: pointer;
     flex-direction: column;
     gap: 5px;
   }
-  .menu-toggle .bar {
-    width: 22px;
-    height: 1px;
-    background: var(--gold);
-    transition: 0.3s;
-  }
+  .menu-toggle .bar { width: 22px; height: 1px; background: var(--gold); transition: 0.3s; }
 
   /* HERO */
   #hero {
@@ -137,20 +130,6 @@
     padding: 0 4rem;
     position: relative;
     overflow: hidden;
-  }
-  .hero-bg-lines {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-  }
-  .hero-bg-lines::before {
-    content: '';
-    position: absolute;
-    top: -20%; right: -10%;
-    width: 700px; height: 700px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%);
   }
   .hero-label {
     font-size: 0.65rem;
@@ -164,17 +143,14 @@
     align-items: center;
     gap: 1rem;
   }
-  .hero-label::before {
-    content: '';
-    display: block;
-    width: 40px; height: 1px;
-    background: var(--gold);
-  }
+  .hero-label::before { content: ''; display: block; width: 40px; height: 1px; background: var(--gold); }
+  
+  /* FIXED: Mobile friendly hero name */
   .hero-name {
     font-family: 'Syne', sans-serif;
-    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-size: clamp(2.8rem, 10vw, 7rem); /* Adjusted for better mobile scaling */
     font-weight: 800;
-    line-height: 0.9;
+    line-height: 0.95;
     letter-spacing: -0.02em;
     color: var(--white);
     opacity: 0;
@@ -186,7 +162,7 @@
     font-style: italic;
     font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
-    font-size: clamp(2.5rem, 5.5vw, 5rem);
+    font-size: clamp(2rem, 8vw, 5rem);
     letter-spacing: 0.05em;
   }
   .hero-title {
@@ -219,91 +195,26 @@
     cursor: none;
     transition: background 0.3s, transform 0.2s;
   }
-  .btn-primary:hover { background: var(--gold2); transform: translateY(-2px); }
-  .btn-ghost {
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: color 0.3s;
-  }
-  .btn-ghost:hover { color: var(--gold); }
+  .btn-ghost { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: color 0.3s; }
 
   /* SECTIONS */
-  .section-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 7rem 4rem;
-  }
+  .section-inner { max-width: 1200px; margin: 0 auto; padding: 7rem 4rem; }
+  .section-label { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+  .section-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--gold-border); }
+  .section-title { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700; letter-spacing: -0.02em; color: var(--white); line-height: 1.1; margin-bottom: 3.5rem; }
+  .section-title em { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; color: var(--gold2); }
 
-  .section-label {
-    font-size: 0.6rem;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: var(--gold);
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-  .section-label::after {
-    content: '';
-    flex: 1;
-    max-width: 60px;
-    height: 1px;
-    background: var(--gold-border);
-  }
-
-  .section-title {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(2rem, 4vw, 3.2rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--white);
-    line-height: 1.1;
-    margin-bottom: 3.5rem;
-  }
-  .section-title em {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-weight: 300;
-    color: var(--gold2);
-  }
-
-  .divider {
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--line), transparent);
-    margin: 0 4rem;
-  }
+  .divider { height: 1px; background: linear-gradient(to right, transparent, var(--line), transparent); margin: 0 4rem; }
 
   /* ABOUT */
   #about { background: var(--bg2); }
-  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
   .about-text p { font-size: 0.9rem; line-height: 1.9; color: var(--text-muted); margin-bottom: 1.5rem; font-weight: 300; }
   .about-text p strong { color: var(--text); font-weight: 500; }
 
   /* EXPERIENCE */
   .experience-list { display: flex; flex-direction: column; gap: 1.5rem; }
-  .exp-item {
-    padding: 1.5rem;
-    border: 1px solid var(--gold-border);
-    background: transparent;
-    position: relative;
-    overflow: hidden;
-    transition: 0.3s;
-  }
-  .exp-item::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px; height: 0;
-    background: var(--gold);
-    transition: height 0.4s ease;
-  }
+  .exp-item { padding: 1.5rem; border: 1px solid var(--gold-border); background: transparent; position: relative; overflow: hidden; transition: 0.3s; }
+  .exp-item::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--gold); transition: height 0.4s ease; }
   .exp-item:hover { border-color: rgba(201,168,76,0.5); background: rgba(201,168,76,0.04); }
   .exp-item:hover::before { height: 100%; }
   .exp-role { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--white); margin-bottom: 0.3rem; }
@@ -327,16 +238,14 @@
   .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
   .project-card { background: var(--bg); border: 1px solid var(--gold-border); overflow: hidden; transition: 0.4s; }
   .project-card:hover { border-color: rgba(201,168,76,0.6); transform: translateY(-6px); }
-  .project-img { width: 100%; height: 220px; object-fit: cover; filter: grayscale(0.3); transition: 0.6s; }
+  .project-img { width: 100%; height: 240px; object-fit: cover; filter: grayscale(0.2); transition: 0.6s; border-bottom: 1px solid var(--gold-border); }
   .project-card:hover .project-img { filter: grayscale(0); transform: scale(1.03); }
   .project-body { padding: 1.5rem; }
-  .project-name { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 0.75rem; }
-  .project-desc { font-size: 0.75rem; color: var(--text-muted); line-height: 1.8; }
+  .project-name { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; }
+  .project-desc { font-size: 0.7rem; color: var(--text-muted); line-height: 1.6; }
 
   /* CONTACT */
-  #contact { background: var(--bg); }
   .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
-  /* المسافة المطلوبة بين معلومات التواصل والفورم */
   .contact-items { display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 3.5rem; } 
   .contact-item { display: flex; align-items: center; gap: 1.25rem; text-decoration: none; transition: 0.3s; }
   .c-icon { width: 44px; height: 44px; border: 1px solid var(--gold-border); display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1.1rem; }
@@ -348,36 +257,24 @@
   .form-group input, .form-group textarea {
     background: var(--bg2); border: 1px solid var(--gold-border); color: var(--text); padding: 0.85rem 1rem; font-family: inherit; outline: none; transition: 0.3s;
   }
-  .form-group input:focus, .form-group textarea:focus { border-color: var(--gold); }
   .form-submit { padding: 0.9rem 2rem; background: transparent; border: 1px solid var(--gold); color: var(--gold); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
-  .form-submit:hover { background: var(--gold); color: #0e0e0e; }
 
   footer { background: var(--bg2); padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); }
 
-  /* ANIMATIONS */
   @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
   .reveal { opacity: 0; transform: translateY(40px); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* MOBILE RESPONSIVENESS */
   @media (max-width: 900px) {
     nav { padding: 1.2rem 1.5rem; }
     .nav-links {
-        position: fixed;
-        top: 0; right: -100%;
-        height: 100vh; width: 80%;
-        background: var(--bg);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        transition: 0.4s ease;
-        z-index: 999;
-        border-left: 1px solid var(--gold-border);
+        position: fixed; top: 0; right: -100%; height: 100vh; width: 80%;
+        background: var(--bg); flex-direction: column; justify-content: center; align-items: center; transition: 0.4s ease; z-index: 999; border-left: 1px solid var(--gold-border);
     }
     .nav-links.active { right: 0; }
     .menu-toggle { display: flex; z-index: 1001; }
     .section-inner { padding: 5rem 1.5rem; }
-    .about-grid, .projects-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .projects-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
     .skills-grid { grid-template-columns: repeat(2, 1fr); }
     footer { flex-direction: column; gap: 1rem; text-align: center; }
     .cursor, .cursor-ring { display: none; }
@@ -392,11 +289,7 @@
 
 <nav>
   <a href="#hero" class="nav-logo">Mohamed Yassin</a>
-  <div class="menu-toggle" id="mobile-menu">
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-  </div>
+  <div class="menu-toggle" id="mobile-menu"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#Experience">Experience</a></li>
@@ -407,25 +300,21 @@
 </nav>
 
 <section id="hero">
-  <div class="hero-bg-lines"></div>
-  <div class="hero-label">Talent Acquisition</div>
+  <div class="hero-label">Talent Acquisition Specialist</div>
   <h1 class="hero-name">Mohamed<br><span>Yassin</span></h1>
-  <p class="hero-title">Talent Acquisition Specialist &nbsp;·&nbsp; HR Analytics &nbsp;·&nbsp; Data-Driven Hiring</p>
+  <p class="hero-title">Recruitment Analytics &nbsp;·&nbsp; HR Strategy &nbsp;·&nbsp; Data Visualization</p>
   <div class="hero-cta">
     <a href="#contact" class="btn-primary">Get In Touch</a>
     <a href="#projects" class="btn-ghost">View Projects &nbsp;→</a>
   </div>
 </section>
 
-<div class="divider"></div>
-
 <section id="about">
   <div class="section-inner">
-    <div class="about-grid">
-      <div class="about-text reveal">
-        <div class="section-label">About</div>
-        <p>Talent Acquisition Specialist with <strong>+4 years of experience</strong> in HR operations, recruitment, and data analysis within the manufacturing sector. Proven track record of handling high-volume recruitment, building dashboards, and providing actionable workforce insights.</p>
-        <p>Proficient in tools like <strong>SAP, Power BI, and Excel</strong>. Passionate about streamlining hiring processes and supporting data-driven HR strategies that make a real difference.</p>
+    <div class="reveal">
+      <div class="section-label">About</div>
+      <div class="about-text">
+        <p>Expert in <strong>Strategic Recruitment</strong> and <strong>HR Analytics</strong> with a focus on data-driven decision making. Helping organizations find and retain top talent through optimized processes and technical insights.</p>
       </div>
     </div>
   </div>
@@ -434,41 +323,33 @@
 <div class="divider"></div>
 
 <section id="Experience">
-  <div class="section-inner">
-    <div class="reveal">
-      <div class="section-label">01 — Experience</div>
-      <h2 class="section-title">Work <em>Experiences</em></h2>
-      <div class="experience-list">
-        <div class="exp-item">
-          <div class="exp-role">Talent Acquisition Specialist</div>
-          <div class="exp-company">Al-Esraa Pharmaceuticals Optima</div>
-          <div class="exp-period">March 2026 — Present</div>
-          <ul class="exp-bullets">
-            <li>Headhunting & strategic sourcing</li>
-            <li>CV screening and managerial interviews</li>
-          </ul>
-        </div>
-        <div class="exp-item">
-          <div class="exp-role">Talent Acquisition Specialist</div>
-          <div class="exp-company">Oriental Weavers</div>
-          <div class="exp-period">2021 — Present</div>
-          <ul class="exp-bullets">
-            <li>Full-cycle recruitment for junior & mid-level roles</li>
-            <li>Recruitment analytics: time-to-hire, source-of-hire KPIs</li>
-          </ul>
-        </div>
-        <div class="exp-item">
-            <div class="exp-role">Data Support Team Lead</div>
-            <div class="exp-company">Oriental Weavers</div>
-            <div class="exp-period">2017 — 2021</div>
+    <div class="section-inner">
+      <div class="reveal">
+        <div class="section-label">01 — Experience</div>
+        <h2 class="section-title">Work <em>History</em></h2>
+        <div class="experience-list">
+          <div class="exp-item">
+            <div class="exp-role">Talent Acquisition Specialist</div>
+            <div class="exp-company">Al-Esraa Pharmaceuticals Optima</div>
+            <div class="exp-period">2023 — Present</div>
             <ul class="exp-bullets">
-              <li>Inventory reporting, stock aging, discrepancy monitoring</li>
+              <li>End-to-end recruitment cycle management</li>
+              <li>Stakeholder management and sourcing strategies</li>
             </ul>
+          </div>
+          <div class="exp-item">
+            <div class="exp-role">Talent Acquisition Specialist</div>
+            <div class="exp-company">Oriental Weavers</div>
+            <div class="exp-period">2021 — 2023</div>
+            <ul class="exp-bullets">
+              <li>High-volume hiring & technical recruitment</li>
+              <li>HR data reporting and dashboard maintenance</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
 <div class="divider"></div>
 
@@ -476,49 +357,17 @@
   <div class="section-inner">
     <div class="reveal">
       <div class="section-label">02 — Skills</div>
-      <h2 class="section-title">Tools & <em>Skills</em></h2>
+      <h2 class="section-title">Tools & <em>Expertise</em></h2>
     </div>
     <div class="skills-grid reveal">
-      <div class="skill-card">
-        <span class="skill-icon">⬡</span>
-        <div class="skill-name">SAP HCM</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" data-width="90"></div></div>
-      </div>
-      <div class="skill-card">
-        <span class="skill-icon">◈</span>
-        <div class="skill-name">Power BI</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" data-width="88"></div></div>
-      </div>
-      <div class="skill-card">
-        <span class="skill-icon">▦</span>
-        <div class="skill-name">Advanced Excel</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" data-width="95"></div></div>
-      </div>
-      <div class="skill-card">
-        <span class="skill-icon">◯</span>
-        <div class="skill-name">Power Query</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" data-width="85"></div></div>
-      </div>
-      <div class="skill-card">
-        <span class="skill-icon">△</span>
-        <div class="skill-name">Data Modeling</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" data-width="82"></div></div>
-      </div>
-      <div class="skill-card">
-        <span class="skill-icon">⌘</span>
-        <div class="skill-name">Python</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" data-width="68"></div></div>
-      </div>
-      <div class="skill-card">
-        <span class="skill-icon">✦</span>
-        <div class="skill-name">Photoshop</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" data-width="75"></div></div>
-      </div>
-      <div class="skill-card">
-        <span class="skill-icon">⬕</span>
-        <div class="skill-name">Visio</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" data-width="80"></div></div>
-      </div>
+      <div class="skill-card"><span class="skill-icon">⬡</span><div class="skill-name">SAP HCM</div><div class="skill-bar-wrap"><div class="skill-bar" data-width="90"></div></div></div>
+      <div class="skill-card"><span class="skill-icon">◈</span><div class="skill-name">Power BI</div><div class="skill-bar-wrap"><div class="skill-bar" data-width="88"></div></div></div>
+      <div class="skill-card"><span class="skill-icon">▦</span><div class="skill-name">Excel</div><div class="skill-bar-wrap"><div class="skill-bar" data-width="95"></div></div></div>
+      <div class="skill-card"><span class="skill-icon">◯</span><div class="skill-name">Power Query</div><div class="skill-bar-wrap"><div class="skill-bar" data-width="85"></div></div></div>
+      <div class="skill-card"><span class="skill-icon">△</span><div class="skill-name">Data Analysis</div><div class="skill-bar-wrap"><div class="skill-bar" data-width="82"></div></div></div>
+      <div class="skill-card"><span class="skill-icon">⌘</span><div class="skill-name">Python</div><div class="skill-bar-wrap"><div class="skill-bar" data-width="60"></div></div></div>
+      <div class="skill-card"><span class="skill-icon">✦</span><div class="skill-name">Photoshop</div><div class="skill-bar-wrap"><div class="skill-bar" data-width="75"></div></div></div>
+      <div class="skill-card"><span class="skill-icon">⬕</span><div class="skill-name">Visio</div><div class="skill-bar-wrap"><div class="skill-bar" data-width="80"></div></div></div>
     </div>
   </div>
 </section>
@@ -529,21 +378,42 @@
   <div class="section-inner">
     <div class="reveal">
       <div class="section-label">03 — Projects</div>
-      <h2 class="section-title">Work <em>Projects</em></h2>
+      <h2 class="section-title">Work <em>Showcase</em></h2>
     </div>
     <div class="projects-grid">
       <div class="project-card reveal">
-        <img class="project-img" src="https://i.ibb.co/FqkkLX2x/4444.png" alt="Dashboard">
+        <img class="project-img" src="https://i.ibb.co/FqkkLX2x/4444.png" alt="Recruitment Dashboard">
         <div class="project-body">
-          <div class="project-name">Dynamic Dashboard — New Hires</div>
-          <p class="project-desc">Power BI analytics for granular workforce tracking.</p>
+          <div class="project-name">Dynamic Hiring Dashboard</div>
+          <p class="project-desc">A Power BI solution for tracking new hires and recruitment efficiency metrics.</p>
         </div>
       </div>
       <div class="project-card reveal">
-        <img class="project-img" src="https://i.ibb.co/TDgWJtzy/1760735764787.jpg" alt="Headcount">
+        <img class="project-img" src="https://i.ibb.co/TDgWJtzy/1760735764787.jpg" alt="Headcount Analysis">
         <div class="project-body">
-          <div class="project-name">Headcount Dashboard</div>
-          <p class="project-desc">Comprehensive people-analytics interface.</p>
+          <div class="project-name">Headcount Analytics</div>
+          <p class="project-desc">Comprehensive analysis of workforce distribution and departmental growth.</p>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <img class="project-img" src="https://i.ibb.co/LzqWvG17/image.png" alt="HR Operations">
+        <div class="project-body">
+          <div class="project-name">Operational HR Report</div>
+          <p class="project-desc">Automated reporting system for daily HR operations and compliance.</p>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <img class="project-img" src="https://i.ibb.co/VWVr661m/image.png" alt="Turnover Dashboard">
+        <div class="project-body">
+          <div class="project-name">Employee Turnover Insight</div>
+          <p class="project-desc">Identifying trends and reasons for attrition using data visualization.</p>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <img class="project-img" src="https://i.ibb.co/p6V18Dsk/image.png" alt="Talent Sourcing">
+        <div class="project-body">
+          <div class="project-name">Sourcing Strategy Map</div>
+          <p class="project-desc">Geographic and platform-based analysis of top talent sources.</p>
         </div>
       </div>
     </div>
@@ -567,26 +437,13 @@
             <div class="c-icon">&#128241;</div>
             <div class="contact-item-text"><strong>MOBILE</strong>01025161154</div>
           </div>
-          <div class="contact-item">
-            <div class="c-icon">◎</div>
-            <div class="contact-item-text"><strong>LOCATION</strong>10th of Ramadan, Egypt</div>
-          </div>
         </div>
       </div>
       <div class="reveal">
         <form id="contactForm">
-          <div class="form-group">
-            <label>Your Name</label>
-            <input type="text" placeholder="John Smith" required>
-          </div>
-          <div class="form-group">
-            <label>Email Address</label>
-            <input type="email" placeholder="john@company.com" required>
-          </div>
-          <div class="form-group">
-            <label>Message</label>
-            <textarea placeholder="Tell me about the opportunity..." required></textarea>
-          </div>
+          <div class="form-group"><label>Your Name</label><input type="text" placeholder="John Smith" required></div>
+          <div class="form-group"><label>Email</label><input type="email" placeholder="john@company.com" required></div>
+          <div class="form-group"><label>Message</label><textarea placeholder="How can I help?" required></textarea></div>
           <button type="submit" class="form-submit">Send Message →</button>
         </form>
       </div>
@@ -595,12 +452,11 @@
 </section>
 
 <footer>
-  <span class="f-name">Mohamed Ali Yasin</span>
-  <span class="f-copy">© 2026 · Talent Acquisition Specialist</span>
+  <span>Mohamed Ali Yasin</span>
+  <span>© 2026 · Talent Acquisition Specialist</span>
 </footer>
 
 <script>
-  // CURSOR
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
   let mx = 0, my = 0, rx = 0, ry = 0;
@@ -613,21 +469,16 @@
   }
   animateCursor();
 
-  // MOBILE MENU
   const menuBtn = document.getElementById('mobile-menu');
   const navLinks = document.querySelector('.nav-links');
-  menuBtn.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-  });
-  document.querySelectorAll('.nav-links a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('active')));
+  menuBtn.addEventListener('click', () => navLinks.classList.toggle('active'));
 
-  // REVEAL & SKILLS
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
         const bars = entry.target.querySelectorAll('.skill-bar');
-        bars.forEach(bar => { bar.style.width = bar.dataset.width + '%'; });
+        bars.forEach(bar => bar.style.width = bar.dataset.width + '%');
       }
     });
   }, { threshold: 0.1 });
