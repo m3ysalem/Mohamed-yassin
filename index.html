@@ -23,83 +23,365 @@
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   html { scroll-behavior: smooth; font-size: 16px; }
-  body { background: var(--bg); color: var(--text); font-family: 'DM Mono', monospace; overflow-x: hidden; cursor: none; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    overflow-x: hidden;
+    cursor: none;
+  }
 
   /* CUSTOM CURSOR */
-  .cursor { width: 10px; height: 10px; background: var(--gold); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transition: transform 0.1s ease; mix-blend-mode: difference; }
-  .cursor-ring { width: 36px; height: 36px; border: 1px solid var(--gold); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transition: all 0.18s ease; opacity: 0.5; }
+  .cursor {
+    width: 10px; height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.18s ease;
+    opacity: 0.5;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 0;
+  }
 
   /* NAV */
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(14,14,14,0.95) 0%, transparent 100%); backdrop-filter: blur(4px); }
-  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; letter-spacing: 0.15em; color: var(--gold2); text-decoration: none; }
-  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.3s; position: relative; }
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 1.5rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(14,14,14,0.95) 0%, transparent 100%);
+    backdrop-filter: blur(4px);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    color: var(--gold2);
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--gold);
+    transition: width 0.3s;
+  }
   .nav-links a:hover { color: var(--gold2); }
+  .nav-links a:hover::after { width: 100%; }
 
-  .menu-toggle { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
-  .menu-toggle .bar { width: 22px; height: 1px; background: var(--gold); transition: 0.3s; }
+  /* MOBILE TOGGLE */
+  .menu-toggle {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .menu-toggle .bar {
+    width: 22px;
+    height: 1px;
+    background: var(--gold);
+    transition: 0.3s;
+  }
 
   /* HERO */
-  #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 4rem; position: relative; }
-  .hero-label { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem; }
-  .hero-label::before { content: ''; display: block; width: 40px; height: 1px; background: var(--gold); }
-  
-  .hero-name { font-family: 'Syne', sans-serif; font-size: clamp(2.5rem, 9vw, 7rem); font-weight: 800; line-height: 0.9; letter-spacing: -0.02em; color: var(--white); }
-  .hero-name span { display: block; color: var(--gold); font-style: italic; font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2rem, 7vw, 5rem); }
-  .hero-title { margin-top: 1.5rem; font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-muted); }
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg-lines {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .hero-bg-lines::before {
+    content: '';
+    position: absolute;
+    top: -20%; right: -10%;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%);
+  }
+  .hero-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.3s ease forwards;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .hero-label::before {
+    content: '';
+    display: block;
+    width: 40px; height: 1px;
+    background: var(--gold);
+  }
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    opacity: 0;
+    animation: fadeUp 0.9s 0.5s ease forwards;
+  }
+  .hero-name span {
+    display: block;
+    color: var(--gold);
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2.5rem, 5.5vw, 5rem);
+    letter-spacing: 0.05em;
+  }
+  .hero-title {
+    margin-top: 1.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    opacity: 0;
+    animation: fadeUp 0.8s 0.7s ease forwards;
+  }
+  .hero-cta {
+    margin-top: 3.5rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.9s ease forwards;
+  }
+  .btn-primary {
+    padding: 0.85rem 2.2rem;
+    background: var(--gold);
+    color: #0e0e0e;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: none;
+    transition: background 0.3s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--gold2); transform: translateY(-2px); }
+  .btn-ghost {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.3s;
+  }
+  .btn-ghost:hover { color: var(--gold); }
 
   /* SECTIONS */
-  .section-inner { max-width: 1200px; margin: 0 auto; padding: 7rem 4rem; }
-  .section-label { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
-  .section-title { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700; color: var(--white); margin-bottom: 3.5rem; }
-  .section-title em { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; color: var(--gold2); }
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 7rem 4rem;
+  }
+
+  .section-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--gold-border);
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 3.5rem;
+  }
+  .section-title em {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--gold2);
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--line), transparent);
+    margin: 0 4rem;
+  }
 
   /* ABOUT */
   #about { background: var(--bg2); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
   .about-text p { font-size: 0.9rem; line-height: 1.9; color: var(--text-muted); margin-bottom: 1.5rem; font-weight: 300; }
+  .about-text p strong { color: var(--text); font-weight: 500; }
 
   /* EXPERIENCE */
-  .exp-item { padding: 1.5rem; border: 1px solid var(--gold-border); margin-bottom: 1.5rem; transition: 0.3s; }
-  .exp-role { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--white); }
-  .exp-company { font-size: 0.7rem; color: var(--gold); margin-bottom: 0.5rem; }
-  .exp-bullets { list-style: none; padding-left: 1rem; margin-top: 0.8rem; }
-  .exp-bullets li { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.4rem; position: relative; }
-  .exp-bullets li::before { content: '—'; position: absolute; left: -1rem; color: var(--gold); }
+  .experience-list { display: flex; flex-direction: column; gap: 1.5rem; }
+  .exp-item {
+    padding: 1.5rem;
+    border: 1px solid var(--gold-border);
+    background: transparent;
+    position: relative;
+    overflow: hidden;
+    transition: 0.3s;
+  }
+  .exp-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--gold);
+    transition: height 0.4s ease;
+  }
+  .exp-item:hover { border-color: rgba(201,168,76,0.5); background: rgba(201,168,76,0.04); }
+  .exp-item:hover::before { height: 100%; }
+  .exp-role { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--white); margin-bottom: 0.3rem; }
+  .exp-company { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+  .exp-period { font-size: 0.62rem; color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase; }
+  .exp-bullets { margin-top: 0.8rem; padding-left: 1rem; list-style: none; }
+  .exp-bullets li { font-size: 0.72rem; color: var(--text-muted); line-height: 1.7; position: relative; padding-left: 1rem; }
+  .exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--gold); opacity: 0.6; }
 
   /* SKILLS */
-  .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--gold-border); }
-  .skill-card { background: var(--bg2); padding: 2rem 1.5rem; text-align: center; border: 0.5px solid var(--gold-border); }
-  .skill-name { font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 600; color: var(--text); }
-  .skill-bar-wrap { height: 2px; background: rgba(255,255,255,0.05); margin-top: 0.8rem; }
-  .skill-bar { height: 100%; background: var(--gold); width: 0; transition: width 1.2s ease; }
+  .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; border: 1px solid var(--gold-border); overflow: hidden; }
+  .skill-card { background: var(--bg2); padding: 2rem 1.5rem; text-align: center; transition: 0.3s; position: relative; }
+  .skill-card:hover { background: var(--bg3); transform: translateY(-4px); }
+  .skill-icon { font-size: 2rem; margin-bottom: 0.75rem; display: block; }
+  .skill-name { font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 600; color: var(--text); letter-spacing: 0.05em; margin-bottom: 0.3rem; }
+  .skill-bar-wrap { height: 2px; background: rgba(255,255,255,0.05); margin-top: 0.8rem; overflow: hidden; }
+  .skill-bar { height: 100%; background: linear-gradient(to right, var(--gold), var(--gold2)); width: 0; transition: width 1.2s ease; }
 
   /* PROJECTS */
   #projects { background: var(--bg2); }
   .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-  .project-card { border: 1px solid var(--gold-border); overflow: hidden; }
-  .project-img { width: 100%; height: 240px; object-fit: cover; }
+  .project-card { background: var(--bg); border: 1px solid var(--gold-border); overflow: hidden; transition: 0.4s; }
+  .project-card:hover { border-color: rgba(201,168,76,0.6); transform: translateY(-6px); }
+  .project-img { width: 100%; height: 220px; object-fit: cover; filter: grayscale(0.3); transition: 0.6s; }
+  .project-card:hover .project-img { filter: grayscale(0); transform: scale(1.03); }
   .project-body { padding: 1.5rem; }
-  .project-name { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--white); }
+  .project-name { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 0.75rem; }
+  .project-desc { font-size: 0.75rem; color: var(--text-muted); line-height: 1.8; }
 
   /* CONTACT */
-  .contact-items { margin-bottom: 3.5rem; } /* المسافة المطلوبة سطرين */
-  .contact-item { display: flex; align-items: center; gap: 1rem; text-decoration: none; color: inherit; margin-bottom: 1rem; }
-  .c-icon { width: 40px; height: 40px; border: 1px solid var(--gold-border); display: flex; align-items: center; justify-content: center; color: var(--gold); }
-  
-  .form-group { margin-bottom: 1.5rem; display: flex; flex-direction: column; }
-  .form-group input, .form-group textarea { background: var(--bg2); border: 1px solid var(--gold-border); color: var(--text); padding: 0.8rem; outline: none; }
-  .form-submit { padding: 1rem; border: 1px solid var(--gold); background: transparent; color: var(--gold); cursor: pointer; transition: 0.3s; }
-  .form-submit:hover { background: var(--gold); color: #000; }
+  #contact { background: var(--bg); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+  /* المسافة المطلوبة بين معلومات التواصل والفورم */
+  .contact-items { display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 3.5rem; } 
+  .contact-item { display: flex; align-items: center; gap: 1.25rem; text-decoration: none; transition: 0.3s; }
+  .c-icon { width: 44px; height: 44px; border: 1px solid var(--gold-border); display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1.1rem; }
+  .contact-item-text { font-size: 0.75rem; color: var(--text-muted); }
+  .contact-item-text strong { display: block; color: var(--text); font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; }
 
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .form-group label { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); }
+  .form-group input, .form-group textarea {
+    background: var(--bg2); border: 1px solid var(--gold-border); color: var(--text); padding: 0.85rem 1rem; font-family: inherit; outline: none; transition: 0.3s;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--gold); }
+  .form-submit { padding: 0.9rem 2rem; background: transparent; border: 1px solid var(--gold); color: var(--gold); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
+  .form-submit:hover { background: var(--gold); color: #0e0e0e; }
+
+  footer { background: var(--bg2); padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  .reveal { opacity: 0; transform: translateY(40px); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* MOBILE RESPONSIVENESS */
   @media (max-width: 900px) {
-    nav { padding: 1rem 1.5rem; }
-    #hero { padding: 0 1.5rem; }
-    .hero-name { font-size: 3.2rem; } /* تصغير عشان Mohamed تظهر كاملة */
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links {
+        position: fixed;
+        top: 0; right: -100%;
+        height: 100vh; width: 80%;
+        background: var(--bg);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: 0.4s ease;
+        z-index: 999;
+        border-left: 1px solid var(--gold-border);
+    }
+    .nav-links.active { right: 0; }
+    .menu-toggle { display: flex; z-index: 1001; }
     .section-inner { padding: 5rem 1.5rem; }
-    .projects-grid, .skills-grid { grid-template-columns: 1fr; }
-    .nav-links { display: none; }
+    .about-grid, .projects-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
     .cursor, .cursor-ring { display: none; }
+    body { cursor: auto; }
   }
 </style>
 </head>
@@ -109,7 +391,12 @@
 <div class="cursor-ring" id="cursorRing"></div>
 
 <nav>
-  <a href="#" class="nav-logo">Mohamed Yassin</a>
+  <a href="#hero" class="nav-logo">Mohamed Yassin</a>
+  <div class="menu-toggle" id="mobile-menu">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </div>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#Experience">Experience</a></li>
@@ -120,49 +407,62 @@
 </nav>
 
 <section id="hero">
-  <div class="hero-label">Talent Acquisition Specialist</div>
+  <div class="hero-bg-lines"></div>
+  <div class="hero-label">Talent Acquisition</div>
   <h1 class="hero-name">Mohamed<br><span>Yassin</span></h1>
-  <p class="hero-title">Recruitment Analytics & HR Strategy</p>
+  <p class="hero-title">Talent Acquisition Specialist &nbsp;·&nbsp; HR Analytics &nbsp;·&nbsp; Data-Driven Hiring</p>
+  <div class="hero-cta">
+    <a href="#contact" class="btn-primary">Get In Touch</a>
+    <a href="#projects" class="btn-ghost">View Projects &nbsp;→</a>
+  </div>
 </section>
+
+<div class="divider"></div>
 
 <section id="about">
   <div class="section-inner">
-    <div class="reveal">
-      <div class="section-label">About Me</div>
-      <div class="about-text">
-        <p>Talent Acquisition Specialist with <strong>+4 years of experience</strong>. Expertise in recruitment, HR operations, and data analysis using SAP, Power BI, and Excel.</p>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <div class="section-label">About</div>
+        <p>Talent Acquisition Specialist with <strong>+4 years of experience</strong> in HR operations, recruitment, and data analysis within the manufacturing sector. Proven track record of handling high-volume recruitment, building dashboards, and providing actionable workforce insights.</p>
+        <p>Proficient in tools like <strong>SAP, Power BI, and Excel</strong>. Passionate about streamlining hiring processes and supporting data-driven HR strategies that make a real difference.</p>
       </div>
     </div>
   </div>
 </section>
 
+<div class="divider"></div>
+
 <section id="Experience">
   <div class="section-inner">
     <div class="reveal">
       <div class="section-label">01 — Experience</div>
-      <h2 class="section-title">Career <em>Journey</em></h2>
+      <h2 class="section-title">Work <em>Experiences</em></h2>
       <div class="experience-list">
         <div class="exp-item">
           <div class="exp-role">Talent Acquisition Specialist</div>
-          <div class="exp-company">Al-Esraa Pharmaceuticals Optima | Mar 2024 - Present</div>
+          <div class="exp-company">Al-Esraa Pharmaceuticals Optima</div>
+          <div class="exp-period">March 2026 — Present</div>
           <ul class="exp-bullets">
-            <li>Headhunting and sourcing strategies.</li>
-            <li>Conducting interviews and managing hiring pipelines.</li>
+            <li>Headhunting & strategic sourcing</li>
+            <li>CV screening and managerial interviews</li>
           </ul>
         </div>
         <div class="exp-item">
           <div class="exp-role">Talent Acquisition Specialist</div>
-          <div class="exp-company">Oriental Weavers Group | Jul 2021 - Mar 2024</div>
+          <div class="exp-company">Oriental Weavers</div>
+          <div class="exp-period">2021 — Present</div>
           <ul class="exp-bullets">
-            <li>Managed full recruitment cycle for various departments.</li>
-            <li>Handled SAP HCM and SuccessFactors operations.</li>
+            <li>Full-cycle recruitment for junior & mid-level roles</li>
+            <li>Recruitment analytics: time-to-hire, source-of-hire KPIs</li>
           </ul>
         </div>
         <div class="exp-item">
-            <div class="exp-role">Personnel Specialist</div>
-            <div class="exp-company">Oriental Weavers Group | Jan 2021 - Jul 2021</div>
+            <div class="exp-role">Data Support Team Lead</div>
+            <div class="exp-company">Oriental Weavers</div>
+            <div class="exp-period">2017 — 2021</div>
             <ul class="exp-bullets">
-              <li>Managing employee records and labor law compliance.</li>
+              <li>Inventory reporting, stock aging, discrepancy monitoring</li>
             </ul>
         </div>
       </div>
@@ -170,77 +470,168 @@
   </div>
 </section>
 
+<div class="divider"></div>
+
 <section id="skills">
   <div class="section-inner">
-    <div class="section-label">02 — Skills</div>
+    <div class="reveal">
+      <div class="section-label">02 — Skills</div>
+      <h2 class="section-title">Tools & <em>Skills</em></h2>
+    </div>
     <div class="skills-grid reveal">
-      <div class="skill-card"><div class="skill-name">SAP HCM</div><div class="skill-bar-wrap"><div class="skill-bar" data-width="90"></div></div></div>
-      <div class="skill-card"><div class="skill-name">Power BI</div><div class="skill-bar-wrap"><div class="skill-bar" data-width="85"></div></div></div>
-      <div class="skill-card"><div class="skill-name">Advanced Excel</div><div class="skill-bar-wrap"><div class="skill-bar" data-width="95"></div></div></div>
-      <div class="skill-card"><div class="skill-name">Python</div><div class="skill-bar-wrap"><div class="skill-bar" data-width="70"></div></div></div>
-      <div class="skill-card"><div class="skill-name">Data Analysis</div><div class="skill-bar-wrap"><div class="skill-bar" data-width="88"></div></div></div>
-      <div class="skill-card"><div class="skill-name">Power Query</div><div class="skill-bar-wrap"><div class="skill-bar" data-width="85"></div></div></div>
-      <div class="skill-card"><div class="skill-name">Visio</div><div class="skill-bar-wrap"><div class="skill-bar" data-width="80"></div></div></div>
-      <div class="skill-card"><div class="skill-name">Photoshop</div><div class="skill-bar-wrap"><div class="skill-bar" data-width="75"></div></div></div>
+      <div class="skill-card">
+        <span class="skill-icon">⬡</span>
+        <div class="skill-name">SAP HCM</div>
+        <div class="skill-bar-wrap"><div class="skill-bar" data-width="90"></div></div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">◈</span>
+        <div class="skill-name">Power BI</div>
+        <div class="skill-bar-wrap"><div class="skill-bar" data-width="88"></div></div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">▦</span>
+        <div class="skill-name">Advanced Excel</div>
+        <div class="skill-bar-wrap"><div class="skill-bar" data-width="95"></div></div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">◯</span>
+        <div class="skill-name">Power Query</div>
+        <div class="skill-bar-wrap"><div class="skill-bar" data-width="85"></div></div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">△</span>
+        <div class="skill-name">Data Modeling</div>
+        <div class="skill-bar-wrap"><div class="skill-bar" data-width="82"></div></div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">⌘</span>
+        <div class="skill-name">Python</div>
+        <div class="skill-bar-wrap"><div class="skill-bar" data-width="68"></div></div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">✦</span>
+        <div class="skill-name">Photoshop</div>
+        <div class="skill-bar-wrap"><div class="skill-bar" data-width="75"></div></div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">⬕</span>
+        <div class="skill-name">Visio</div>
+        <div class="skill-bar-wrap"><div class="skill-bar" data-width="80"></div></div>
+      </div>
     </div>
   </div>
 </section>
+
+<div class="divider"></div>
 
 <section id="projects">
   <div class="section-inner">
-    <div class="section-label">03 — Projects</div>
+    <div class="reveal">
+      <div class="section-label">03 — Projects</div>
+      <h2 class="section-title">Work <em>Projects</em></h2>
+    </div>
     <div class="projects-grid">
-      <div class="project-card reveal"><img src="https://i.ibb.co/FqkkLX2x/4444.png" class="project-img"><div class="project-body"><div class="project-name">Dynamic Dashboard</div></div></div>
-      <div class="project-card reveal"><img src="https://i.ibb.co/TDgWJtzy/1760735764787.jpg" class="project-img"><div class="project-body"><div class="project-name">Headcount Analysis</div></div></div>
-      <div class="project-card reveal"><img src="https://i.ibb.co/958068/image.png" class="project-img"><div class="project-body"><div class="project-name">Recruitment Report</div></div></div>
-      <div class="project-card reveal"><img src="https://i.ibb.co/958807/image.png" class="project-img"><div class="project-body"><div class="project-name">SuccessFactors Data</div></div></div>
-      <div class="project-card reveal"><img src="https://i.ibb.co/95e5c1/image.png" class="project-img"><div class="project-body"><div class="project-name">HR Analytics</div></div></div>
+      <div class="project-card reveal">
+        <img class="project-img" src="https://i.ibb.co/FqkkLX2x/4444.png" alt="Dashboard">
+        <div class="project-body">
+          <div class="project-name">Dynamic Dashboard — New Hires</div>
+          <p class="project-desc">Power BI analytics for granular workforce tracking.</p>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <img class="project-img" src="https://i.ibb.co/TDgWJtzy/1760735764787.jpg" alt="Headcount">
+        <div class="project-body">
+          <div class="project-name">Headcount Dashboard</div>
+          <p class="project-desc">Comprehensive people-analytics interface.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
+<div class="divider"></div>
 
 <section id="contact">
   <div class="section-inner">
-    <div class="section-label">04 — Contact</div>
-    <div class="contact-items">
-      <a href="mailto:m.3ysalem@gmail.com" class="contact-item"><div class="c-icon">✉</div>m.3ysalem@gmail.com</a>
-      <div class="contact-item"><div class="c-icon">☏</div>01025161154</div>
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="section-label">04 — Contact</div>
+        <h2 class="section-title">Let's <em>Connect</em></h2>
+        <div class="contact-items">
+          <a href="mailto:m.3ysalem@gmail.com" class="contact-item">
+            <div class="c-icon">✉</div>
+            <div class="contact-item-text"><strong>EMAIL</strong>m.3ysalem@gmail.com</div>
+          </a>
+          <div class="contact-item">
+            <div class="c-icon">&#128241;</div>
+            <div class="contact-item-text"><strong>MOBILE</strong>01025161154</div>
+          </div>
+          <div class="contact-item">
+            <div class="c-icon">◎</div>
+            <div class="contact-item-text"><strong>LOCATION</strong>10th of Ramadan, Egypt</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <form id="contactForm">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" placeholder="John Smith" required>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="john@company.com" required>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea placeholder="Tell me about the opportunity..." required></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send Message →</button>
+        </form>
+      </div>
     </div>
-    <form>
-      <div class="form-group"><input type="text" placeholder="Name"></div>
-      <div class="form-group"><textarea placeholder="Message"></textarea></div>
-      <button class="form-submit">Send</button>
-    </form>
   </div>
 </section>
 
+<footer>
+  <span class="f-name">Mohamed Ali Yasin</span>
+  <span class="f-copy">© 2026 · Talent Acquisition Specialist</span>
+</footer>
+
 <script>
+  // CURSOR
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
-  let mx=0, my=0, rx=0, ry=0;
-  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
-  function anim() {
-    cursor.style.left = (mx-5)+'px'; cursor.style.top = (my-5)+'px';
-    rx += (mx-rx)*0.1; ry += (my-ry)*0.1;
-    ring.style.left = (rx-18)+'px'; ring.style.top = (ry-18)+'px';
-    requestAnimationFrame(anim);
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animateCursor() {
+    cursor.style.left = (mx - 5) + 'px'; cursor.style.top = (my - 5) + 'px';
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = (rx - 18) + 'px'; ring.style.top = (ry - 18) + 'px';
+    requestAnimationFrame(animateCursor);
   }
-  anim();
+  animateCursor();
 
-  const obs = new IntersectionObserver(entries => {
+  // MOBILE MENU
+  const menuBtn = document.getElementById('mobile-menu');
+  const navLinks = document.querySelector('.nav-links');
+  menuBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+  document.querySelectorAll('.nav-links a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('active')));
+
+  // REVEAL & SKILLS
+  const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if(entry.isIntersecting) {
+      if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        entry.target.querySelectorAll('.skill-bar').forEach(b => b.style.width = b.parentElement.previousElementSibling.dataset.width || '80%');
-        // تصحيح بسيط للبارات
-        entry.target.querySelectorAll('.skill-bar').forEach(b => {
-            const val = b.parentElement.parentElement.querySelector('.skill-bar').parentElement.previousElementSibling; 
-            b.style.width = b.closest('.skill-card').querySelector('.skill-bar').dataset.width + '%';
-        });
+        const bars = entry.target.querySelectorAll('.skill-bar');
+        bars.forEach(bar => { bar.style.width = bar.dataset.width + '%'; });
       }
     });
-  });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 
 </body>
