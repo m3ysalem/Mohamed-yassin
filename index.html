@@ -170,18 +170,39 @@
     width: 40px; height: 1px;
     background: var(--gold);
   }
-.hero-name {
+/* تعديل "محمد" - صغرناها جداً وخليناها متناسقة */
+  .hero-name {
     font-family: 'Syne', sans-serif;
-    /* صغرنا الحد الأدنى لـ 1.8 والحد الأقصى لـ 4 */
-    font-size: clamp(1.8rem, 7vw, 4rem); 
+    font-size: clamp(2.5rem, 6vw, 3.8rem); /* صغرنا الـ Max من 5 لـ 3.8 */
     font-weight: 800;
-    line-height: 1;
-    letter-spacing: -0.02em;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
     color: var(--white);
     opacity: 0;
     animation: fadeUp 0.9s 0.5s ease forwards;
+    margin-bottom: 0.2rem; /* مسافة بسيطة بينها وبين ياسين */
   }
 
+  /* تعديل "ياسين" - سبتها زي ما هي كبيرة وشيك */
+  .hero-name span {
+    display: block;
+    color: var(--gold);
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(3rem, 10vw, 5.5rem); /* رجعتها لحجمها الضخم القديم */
+    letter-spacing: 0.05em;
+    line-height: 0.9;
+  }
+
+  /* تعديل مخصوص للموبايل عشان "محمد" متبقاش عملاقة */
+  @media (max-width: 900px) {
+    .hero-name { 
+      font-size: 2.2rem !important; /* صغرنا محمد أكتر في الموبايل */
+    }
+    .hero-name span { 
+      font-size: 3.5rem !important; /* ياسين تفضل واضحة */
+    }
   .hero-name span {
     display: block;
     color: var(--gold);
