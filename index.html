@@ -172,9 +172,9 @@
   }
   .hero-name {
     font-family: 'Syne', sans-serif;
-    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-size: clamp(2.5rem, 10vw, 7rem);
     font-weight: 800;
-    line-height: 0.9;
+    line-height: 0.95;
     letter-spacing: -0.02em;
     color: var(--white);
     opacity: 0;
@@ -186,7 +186,7 @@
     font-style: italic;
     font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
-    font-size: clamp(2.5rem, 5.5vw, 5rem);
+    font-size: clamp(2rem, 6vw, 5rem);
     letter-spacing: 0.05em;
   }
   .hero-title {
@@ -336,7 +336,6 @@
   /* CONTACT */
   #contact { background: var(--bg); }
   .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
-  /* المسافة المطلوبة بين معلومات التواصل والفورم */
   .contact-items { display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 3.5rem; } 
   .contact-item { display: flex; align-items: center; gap: 1.25rem; text-decoration: none; transition: 0.3s; }
   .c-icon { width: 44px; height: 44px; border: 1px solid var(--gold-border); display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1.1rem; }
@@ -362,6 +361,8 @@
   /* MOBILE RESPONSIVENESS */
   @media (max-width: 900px) {
     nav { padding: 1.2rem 1.5rem; }
+    #hero { padding: 0 1.5rem; }
+    .hero-name { font-size: 3.5rem; line-height: 1; }
     .nav-links {
         position: fixed;
         top: 0; right: -100%;
