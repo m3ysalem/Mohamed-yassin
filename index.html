@@ -327,14 +327,28 @@
   .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
   .project-card { background: var(--bg); border: 1px solid var(--gold-border); overflow: hidden; transition: 0.4s; }
   .project-card:hover { border-color: rgba(201,168,76,0.6); transform: translateY(-6px); }
-  ..project-img {
+  .project-img {
     width: 100%;
-    height: 350px; /* زودنا الارتفاع هنا عشان الصور الطويلة تاخد راحتها */
-    object-fit: contain; /* ده هيخلي الصورة تظهر كاملة بدون قص */
-    background: var(--bg3); /* خلفية غامقة عشان لو الصورة ليها هوامش تبان شيك */
-    filter: grayscale(0.3);
-    transition: 0.6s;
-    padding: 10px; /* مسافة أمان جوه الكارد */
+    height: 280px; /* ارتفاع متوسط ومناسب لكل الصور */
+    object-fit: cover; /* هيملا الكارد بالكامل ويخلي الشكل موحد */
+    object-position: top; /* عشان لو الصورة طويلة، يركز على الجزء اللي فوق (المهم) */
+    filter: grayscale(0.2);
+    transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .project-card {
+    background: var(--bg3); 
+    border: 1px solid var(--gold-border);
+    overflow: hidden;
+    transition: 0.4s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); /* بيوزعهم بذكاء حسب عرض الشاشة */
+    gap: 2rem;
   }
   .project-card:hover .project-img { filter: grayscale(0); transform: scale(1.03); }
   .project-body { padding: 1.5rem; }
