@@ -133,8 +133,9 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 0 4rem;
+    justify-content: center; /* بيخلي الكلام في نص الشاشة بالطول */
+    align-items: flex-start; /* بيبدأ الكلام من الشمال بشياكة */
+    padding: 0 8vw; /* مسافة متغيرة حسب حجم الشاشة */
     position: relative;
     overflow: hidden;
   }
@@ -173,54 +174,22 @@
 /* تعديل "محمد" - صغرناها جداً وخليناها متناسقة */
   .hero-name {
     font-family: 'Syne', sans-serif;
-    font-size: clamp(2.5rem, 6vw, 3.8rem); /* صغرنا الـ Max من 5 لـ 3.8 */
+    font-size: clamp(2.2rem, 5vw, 4.5rem); /* محمد كدة حجمها مثالي للاب */
     font-weight: 800;
-    line-height: 0.9;
+    line-height: 1.1;
     letter-spacing: -0.03em;
     color: var(--white);
-    opacity: 0;
-    animation: fadeUp 0.9s 0.5s ease forwards;
-    margin-bottom: 0.2rem; /* مسافة بسيطة بينها وبين ياسين */
+    margin: 0;
   }
 
-  /* تعديل "ياسين" - سبتها زي ما هي كبيرة وشيك */
   .hero-name span {
     display: block;
     color: var(--gold);
     font-style: italic;
     font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
-    font-size: clamp(3rem, 10vw, 5.5rem); /* رجعتها لحجمها الضخم القديم */
-    letter-spacing: 0.05em;
+    font-size: clamp(3.5rem, 9vw, 6.5rem); /* ياسين حجمها كبير وشيك */
     line-height: 0.9;
-  }
-
-  /* تعديل مخصوص للموبايل عشان "محمد" متبقاش عملاقة */
-  @media (max-width: 900px) {
-    .hero-name { 
-      font-size: 2.2rem !important; /* صغرنا محمد أكتر في الموبايل */
-    }
-    .hero-name span { 
-      font-size: 3.5rem !important; /* ياسين تفضل واضحة */
-    }
-  .hero-name span {
-    display: block;
-    color: var(--gold);
-    font-style: italic;
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    /* صغرنا كلمة Yassin برضه عشان تتنفس */
-    font-size: clamp(1.5rem, 5vw, 3rem);
-    letter-spacing: 0.05em;
-  }
-  .hero-name span {
-    display: block;
-    color: var(--gold);
-    font-style: italic;
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: clamp(2rem, 6vw, 5rem);
-    letter-spacing: 0.05em;
   }
   .hero-title {
     margin-top: 1.5rem;
@@ -414,10 +383,39 @@
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
   /* MOBILE RESPONSIVENESS */
+/* --- MOBILE RESPONSIVENESS (تحت خالص في ملفك) --- */
   @media (max-width: 900px) {
     nav { padding: 1.2rem 1.5rem; }
-    #hero { padding: 0 1.5rem; }
-    .hero-name { font-size: 3.5rem; line-height: 1; }
+    
+    #hero {
+        padding: 0 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center; /* سنترة في نص الموبايل */
+        text-align: center;
+        min-height: 100vh;
+    }
+    
+    .hero-label { justify-content: center; width: 100%; } 
+    
+    .hero-name { 
+      font-size: 2.2rem !important; /* حجم محمد في الموبايل */
+      line-height: 1.1;
+    }
+    
+    .hero-name span { 
+      font-size: 3.8rem !important; /* حجم ياسين في الموبايل */
+      display: block;
+    }
+    
+    .hero-cta { 
+      justify-content: center; 
+      width: 100%; 
+      margin-top: 2.5rem;
+    }
+
+    /* باقي كود المنيو اللي كان عندك عشان ميختفيش */
     .nav-links {
         position: fixed;
         top: 0; right: -100%;
